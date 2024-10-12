@@ -15,8 +15,9 @@ public class Order {
     @JsonIgnore
     private Long Id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @Column(name = "product_sku")

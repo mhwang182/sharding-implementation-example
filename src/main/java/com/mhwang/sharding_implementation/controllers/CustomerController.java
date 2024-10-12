@@ -54,4 +54,17 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return ResponseEntity.ok().body("");
     }
+
+    @GetMapping("/getOrders/{customerId}")
+    public ResponseEntity<?> getOrdersByCustomer(@PathVariable Long customerId) {
+
+        Optional<Customer> customerOpt = customerService.findCustomer(customerId);
+
+        if (customerOpt.isEmpty()) {
+            return ResponseEntity.status(404).body("Unable to find customer");
+        }
+
+        return ResponseEntity.ok().body(customerOpt.get().getOrders());
+    }
+
 }

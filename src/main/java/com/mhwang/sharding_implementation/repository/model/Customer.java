@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.Email;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Customers")
@@ -29,6 +30,10 @@ public class Customer {
     @Column(name = "created_at")
     @CreationTimestamp
     private Date created_at;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> orders;
 
     public Long getId() {
         return id;
@@ -68,5 +73,13 @@ public class Customer {
 
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
