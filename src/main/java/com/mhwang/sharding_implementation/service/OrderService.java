@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class OrderService {
 
@@ -30,5 +32,25 @@ public class OrderService {
                 });
 
         return orderRepository.save(newOrder);
+    }
+
+    public Optional<Order> getOrder(Long id) {
+        return orderRepository.findById(id);
+    }
+
+    public Order updateOrder(Long orderId, Order order) {
+
+        return orderRepository
+                .findById(orderId)
+                .map(orderToUpdate -> {
+                    orderToUpdate.setProductSku(order.getProductSku());
+                    orderRepository.save(orderToUpdate);
+                    return orderToUpdate;
+                })
+                .orElse(null);
+    }
+
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
     }
 }
