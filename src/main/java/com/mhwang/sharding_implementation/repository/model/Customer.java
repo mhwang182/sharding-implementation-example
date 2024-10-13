@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.validation.constraints.Email;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Customers")
@@ -82,4 +83,15 @@ public class Customer {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        return Objects.equals(id, customer.id);
+    }
+
 }
