@@ -37,7 +37,7 @@ public class OrderServiceTest {
         MockitoAnnotations.openMocks(this);
 
         customer1 = new Customer();
-        customer1.setId(1L);
+        customer1.setId("1L");
         customer1.setFirstname("Testfirst1");
         customer1.setLastname("Testlast1");
         customer1.setEmail("test@email.com");

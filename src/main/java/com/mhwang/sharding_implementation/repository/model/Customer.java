@@ -14,9 +14,8 @@ import java.util.Objects;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private Long id;
+    private String id;
 
     @Column(name = "firstname")
     private String firstname;
@@ -36,11 +35,11 @@ public class Customer {
     @JsonIgnore
     private List<Order> orders;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

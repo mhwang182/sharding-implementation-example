@@ -19,7 +19,7 @@ public class OrderService {
     private CustomerRepository customerRepository;
 
     @Transactional
-    public Order createOrderAndAddToCustomer(Long customerId, Long productSku) {
+    public Order createOrderAndAddToCustomer(String customerId, Long productSku) {
 
         Order newOrder = new Order();
         newOrder.setProductSku(productSku);

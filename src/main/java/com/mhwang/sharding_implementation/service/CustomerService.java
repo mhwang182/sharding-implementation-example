@@ -13,16 +13,21 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Optional<Customer> findCustomer(Long id) {
+    @Autowired
+    private ShardKeyGenerationService shardKeyGenerationService;
+
+    public Optional<Customer> findCustomer(String id) {
         return customerRepository.findById(id);
     }
 
     public void createCustomer(Customer customer) {
 
+        String id = shardKeyGenerationService.generateShardKey();
+        customer.setId(id);
         customerRepository.save(customer);
     }
 
-    public Customer updateCustomer(Long id, Customer customer) {
+    public Customer updateCustomer(String id, Customer customer) {
         return customerRepository
                 .findById(id)
                 .map(customerToUpdate -> {
@@ -34,7 +39,7 @@ public class CustomerService {
                 .orElse(null);
     }
 
-    public void deleteCustomer(Long id) {
+    public void deleteCustomer(String id) {
         customerRepository.deleteById(id);
     }
 

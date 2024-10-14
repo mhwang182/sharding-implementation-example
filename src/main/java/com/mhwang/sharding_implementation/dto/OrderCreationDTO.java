@@ -2,15 +2,15 @@ package com.mhwang.sharding_implementation.dto;
 
 public class OrderCreationDTO {
 
-    private Long customerId;
+    private String customerId;
 
     private Long productSku;
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

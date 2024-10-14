@@ -31,7 +31,7 @@ public class CustomerServiceTest {
         MockitoAnnotations.openMocks(this);
 
         customer1 = new Customer();
-        customer1.setId(1L);
+        customer1.setId("1L");
         customer1.setFirstname("Testfirst1");
         customer1.setLastname("Testlast1");
         customer1.setEmail("test@email.com");
@@ -41,11 +41,11 @@ public class CustomerServiceTest {
     @Test
     void testFindCustomer() {
 
-        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer1));
-        when(customerRepository.findById(2L)).thenReturn(Optional.empty());
+        when(customerRepository.findById("1L")).thenReturn(Optional.of(customer1));
+        when(customerRepository.findById("2L")).thenReturn(Optional.empty());
 
-        assertEquals(customer1, customerService.findCustomer(1L).orElse(null));
-        assertTrue(customerService.findCustomer(2L).isEmpty());
+        assertEquals(customer1, customerService.findCustomer("1L").orElse(null));
+        assertTrue(customerService.findCustomer("2L").isEmpty());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CustomerServiceTest {
 
         Customer mockCustomer = Mockito.mock(Customer.class);
 
-        when(customerRepository.findById(1L)).thenReturn(Optional.of(mockCustomer));
+        when(customerRepository.findById("1L")).thenReturn(Optional.of(mockCustomer));
 
         customerService.updateCustomer(customer1.getId(), customer1);
 
@@ -73,15 +73,15 @@ public class CustomerServiceTest {
 
     @Test
     void testUpdateCustomerDoesNotExist() {
-        when(customerRepository.findById(1L)).thenReturn(Optional.empty());
+        when(customerRepository.findById("1L")).thenReturn(Optional.empty());
 
-        assertNull(customerService.updateCustomer(1L, customer1));
+        assertNull(customerService.updateCustomer("1L", customer1));
     }
 
     @Test
     void testDeleteCustomer() {
-        customerService.deleteCustomer(1L);
+        customerService.deleteCustomer("1L");
 
-        verify(customerRepository, times(1)).deleteById(eq(1L));
+        verify(customerRepository, times(1)).deleteById(eq("1L"));
     }
 }
