@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.Email;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +14,6 @@ import java.util.Objects;
 public class Customer {
 
     @Id
-    @JsonIgnore
     private String id;
 
     @Column(name = "firstname")
@@ -29,7 +28,7 @@ public class Customer {
 
     @Column(name = "created_at")
     @CreationTimestamp
-    private Date created_at;
+    private LocalDateTime created_at;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
@@ -67,11 +66,11 @@ public class Customer {
         this.email = email;
     }
 
-    public Date getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 

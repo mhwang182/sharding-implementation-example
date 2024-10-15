@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -41,22 +42,22 @@ public class OrderServiceTest {
         customer1.setFirstname("Testfirst1");
         customer1.setLastname("Testlast1");
         customer1.setEmail("test@email.com");
-        customer1.setCreated_at(new Date());
+        customer1.setCreated_at(LocalDateTime.now());
 
         order1 = new Order();
-        order1.setId(1L);
+        order1.setId("1L");
         order1.setCustomer(customer1);
         order1.setProductSku(123L);
-        order1.setCreatedAt(new Date());
+        order1.setCreatedAt(LocalDateTime.now());
     }
 
     @Test
     void testCreateOrderAndAddToCustomer() {
 
-        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer1));
+        when(customerRepository.findById("1L")).thenReturn(Optional.of(customer1));
 
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
-        orderService.createOrderAndAddToCustomer(1L, 123L);
+        orderService.createOrderAndAddToCustomer("1L", 123L);
 
         verify(orderRepository, times(1)).save(orderCaptor.capture());
 
@@ -69,10 +70,10 @@ public class OrderServiceTest {
     @Test
     void testCreateOrderAndAddToCustomer_CustomerNotFound() {
 
-        when(customerRepository.findById(1L)).thenReturn(Optional.empty());
+        when(customerRepository.findById("1L")).thenReturn(Optional.empty());
 
         ArgumentCaptor<Order> orderCaptor = ArgumentCaptor.forClass(Order.class);
-        orderService.createOrderAndAddToCustomer(1L, 123L);
+        orderService.createOrderAndAddToCustomer("1L", 123L);
 
         verify(orderRepository, times(1)).save(orderCaptor.capture());
 
@@ -84,9 +85,9 @@ public class OrderServiceTest {
     @Test
     void testGetOrder() {
 
-        when(orderRepository.findById(1L)).thenReturn(Optional.of(order1));
+        when(orderRepository.findById("1L")).thenReturn(Optional.of(order1));
 
-        assertEquals(order1, orderService.getOrder(1L).orElse(null));
+        assertEquals(order1, orderService.getOrder("1L").orElse(null));
     }
 
     @Test
@@ -94,9 +95,9 @@ public class OrderServiceTest {
 
         Order mockOrder = mock(Order.class);
 
-        when(orderRepository.findById(1L)).thenReturn(Optional.of(mockOrder));
+        when(orderRepository.findById("1L")).thenReturn(Optional.of(mockOrder));
 
-        orderService.updateOrder(1L, order1);
+        orderService.updateOrder("1L", order1);
 
         verify(mockOrder, times(1)).setProductSku(eq(order1.getProductSku()));
 
@@ -106,7 +107,7 @@ public class OrderServiceTest {
     @Test
     void testUpdateOrder_OrderNotFound() {
 
-        when(orderRepository.findById(1L)).thenReturn(Optional.empty());
+        when(orderRepository.findById("1L")).thenReturn(Optional.empty());
 
         verify(orderRepository, never()).save(any(Order.class));
     }
@@ -114,9 +115,9 @@ public class OrderServiceTest {
     @Test
     void testDeleteOrder() {
 
-        orderService.deleteOrder(1L);
+        orderService.deleteOrder("1L");
 
-        verify(orderRepository, times(1)).deleteById(eq(1L));
+        verify(orderRepository, times(1)).deleteById(eq("1L"));
     }
 
 

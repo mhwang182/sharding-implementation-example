@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOrder(@PathVariable Long id) {
+    public ResponseEntity<?> getOrder(@PathVariable String id) {
 
         Optional<Order> orderOpt = orderService.getOrder(id);
 
@@ -41,7 +41,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestBody Order order) {
+    public ResponseEntity<?> updateOrder(@PathVariable String id, @RequestBody Order order) {
 
         Order updatedOrder = orderService.updateOrder(id, order);
 
@@ -53,7 +53,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<?> deleteOrder(@PathVariable String id) {
 
         orderService.deleteOrder(id);
 

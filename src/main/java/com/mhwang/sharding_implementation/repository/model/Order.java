@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -12,9 +12,7 @@ import java.util.Objects;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
-    private Long Id;
+    private String Id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -26,13 +24,13 @@ public class Order {
 
     @Column(name = "created_at")
     @CreationTimestamp
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    public Long getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 
@@ -52,11 +50,11 @@ public class Order {
         this.productSku = productSku;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

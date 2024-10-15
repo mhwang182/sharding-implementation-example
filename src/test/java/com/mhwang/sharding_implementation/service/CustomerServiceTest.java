@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +35,7 @@ public class CustomerServiceTest {
         customer1.setFirstname("Testfirst1");
         customer1.setLastname("Testlast1");
         customer1.setEmail("test@email.com");
-        customer1.setCreated_at(new Date());
+        customer1.setCreated_at(LocalDateTime.now());
     }
 
     @Test
