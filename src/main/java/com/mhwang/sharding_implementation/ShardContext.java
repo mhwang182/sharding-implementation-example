@@ -6,9 +6,9 @@ public class ShardContext {
 
     private static final ThreadLocal<Integer> CURRENT_SHARD = new ThreadLocal<>();
 
-    public static int getCurrentShard() {
+    public static Integer getCurrentShard() {
         if (isNull(CURRENT_SHARD.get())) {
-            return 1;
+            return null;
         }
         return CURRENT_SHARD.get();
     }
