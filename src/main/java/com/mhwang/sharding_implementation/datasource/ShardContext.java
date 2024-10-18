@@ -1,4 +1,4 @@
-package com.mhwang.sharding_implementation;
+package com.mhwang.sharding_implementation.datasource;
 
 import static java.util.Objects.isNull;
 
@@ -13,7 +13,7 @@ public class ShardContext {
         return CURRENT_SHARD.get();
     }
 
-    public static void setCurrentShard(int shard) {
+    public static void setCurrentShard(Integer shard) {
         CURRENT_SHARD.set(shard);
     }
 }

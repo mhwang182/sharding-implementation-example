@@ -24,8 +24,8 @@ public class CustomerController {
         return ResponseEntity.status(201).body("User " + customer.getEmail() + " created successfully!");
     }
 
-    @GetMapping("/find")
-    public ResponseEntity<?> getCustomer(String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCustomer(@PathVariable String id) {
 
         Optional<Customer> customerOpt = customerService.findCustomer(id);
 

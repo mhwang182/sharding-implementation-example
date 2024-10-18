@@ -3,7 +3,7 @@ CREATE TABLE `customers` (
     `firstname` varchar(50) NOT NULL,
     `lastname` varchar(50) NOT NULL,
     `email` varchar(50) NOT NULL,
-    `created_at` date DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
     PRIMARY KEY (`id`), UNIQUE KEY `uk_email` (`email`)
 )
 

@@ -1,6 +1,5 @@
 package com.mhwang.sharding_implementation.service;
 
-import com.mhwang.sharding_implementation.ShardContext;
 import com.mhwang.sharding_implementation.repository.CustomerRepository;
 import com.mhwang.sharding_implementation.repository.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +21,6 @@ public class CustomerService {
     }
 
     public void createCustomer(Customer customer) {
-
-        String id = shardKeyGenerationService.generateShardKey();
-        customer.setId(id);
-
-        ShardContext.setCurrentShard(shardKeyGenerationService.getShardNumberFromKey(id));
 
         customerRepository.save(customer);
     }
