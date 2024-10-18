@@ -3,6 +3,7 @@ package com.mhwang.sharding_implementation.datasource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -23,7 +24,7 @@ public class DataSourceConfig {
     private String defaultShard;
 
     @Bean
-    public DataSource customDataSource() {
+    public DataSourceContainer dataSourceContainer() {
 
         File shard1File = Paths.get("target/classes/shard1.properties").toFile();
         File shard2File = Paths.get("target/classes/shard2.properties").toFile();
@@ -32,12 +33,9 @@ public class DataSourceConfig {
         files.add(shard1File);
         files.add(shard2File);
 
-        int shardNum = 0;
-
-        Map<Object, Object> dataSourceMap = new HashMap<>();
+        List<DataSource> dataSources = new ArrayList<>();
 
         for (File file: files) {
-            shardNum++;
 
             Properties properties = new Properties();
 
@@ -52,6 +50,26 @@ public class DataSourceConfig {
             dataSource.setUsername(properties.getProperty("datasource.username"));
             dataSource.setPassword(properties.getProperty("datasource.password"));
             dataSource.setDriverClassName(properties.getProperty("datasource.driver-class-name"));
+            dataSources.add(dataSource);
+        }
+
+        return new DataSourceContainer(dataSources);
+
+    }
+
+    @Bean
+    @Primary
+    public DataSource customDataSource(DataSourceContainer dataSourceContainer) {
+
+        List<DataSource> dataSources = dataSourceContainer.getDataSourceList();
+
+        int shardNum = 0;
+
+        Map<Object, Object> dataSourceMap = new HashMap<>();
+
+        for (DataSource dataSource: dataSources) {
+
+            shardNum++;
 
             dataSourceMap.put(shardNum, dataSource);
         }
