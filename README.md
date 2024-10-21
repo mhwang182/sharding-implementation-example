@@ -1,6 +1,6 @@
 Goal of the project:
 - implement example of relational database sharding
-- create a service that utilizes multiple datasources but behaves like a single datasource
+- create a service that utilizes multiple datasources but behaves like a single datasource using simple data model example
 
 Implementation details:
 - Enabled spring to connect to multiple datasources
