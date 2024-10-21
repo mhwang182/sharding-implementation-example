@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +33,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public String getId() {
         return id;
