@@ -13,4 +13,5 @@ What I learned
 - How to implement AbstractRoutingDataSource
 - How to implement multiple H2 database using EmbeddedDatabase instead of relying of spring boot to auto create
 - How to use threadlocal as a global context
+- How to use aspect oriented programming to programmaticaly determine which shard to use without putting the responsibility in the service layer
   
